@@ -109,31 +109,50 @@ section{
 }
 
 /* Hover Effect */
-.header .navbar a:hover {
-   color: white; /* Change text color */
-   background: rgb(0, 0, 0); /* Violet background highlight */
-   border-radius: 5px;
-   transform: scale(1.1); /* Slight zoom effect */
-}
+/* Login Button Styling */
+.navbar .login-btn {
+    background-color: black;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+ }
+ 
+ /* Hover Effect for the Login Button */
+ .navbar .login-btn:hover {
+    background-color: black;  /* Maintain the black background */
+    color: white;             /* Keep the text color white */
+    transform: scale(1.1);    /* Slight zoom effect */
+ }
+ 
+ /* Header Link Hover Effect */
+ .header .navbar a:hover {
+    color: white;             /* Change text color */
+    background: rgb(0, 0, 0); /* Black background highlight */
+    border-radius: 5px;
+    transform: scale(1.1);    /* Slight zoom effect */
+ }
+ 
+ /* Line Animation for Header Links */
+ .header .navbar a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.4s ease-in-out, left 0.4s ease-in-out;
+    transform: translateX(-50%);
+ }
+ 
+ .header .navbar a:hover::after {
+    width: 100%;
+    left: 0;
+    transform: translateX(0);
+ }
 
-/* Middle-to-Full Line Animation */
-.header .navbar a::after {
-   content: "";
-   position: absolute;
-   left: 50%;
-   bottom: 0; /* Keep it at the bottom */
-   width: 0;
-   height: 2px;
-   background-color: white; /* Line color */
-   transition: width 0.4s ease-in-out, left 0.4s ease-in-out;
-   transform: translateX(-50%);
-}
-
-.header .navbar a:hover::after {
-   width: 100%;
-   left: 0;
-   transform: translateX(0);
-}
 
 
 
@@ -153,7 +172,7 @@ section{
    display: flex;
    align-items: center;
    justify-content: center;
-   background: url(images/home_bg.webp) no-repeat;
+   background: url("../images/home_bg.webp") no-repeat;
    background-size: cover;
    background-position: center;
 }
@@ -250,9 +269,68 @@ section{
    transform: scaleX(1);
 }
 
+/* FOOTER */
+
+.footer {
+   background-color: #19123f;
+   color: white;
+   text-align: center;
+   padding: 40px 20px;
+   margin-top: 50px;
+   font-size: 18px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.footer-container {
+   max-width: 800px; /* Restrict width for better readability */
+   width: 100%;
+}
+
+.footer-quote h3 {
+   font-size: 24px;
+   color: #fc8804;
+   margin-bottom: 10px;
+   font-weight: bold;
+}
+
+.footer-quote p {
+   font-style: italic;
+   font-size: 18px;
+   margin-bottom: 20px;
+}
+
+.footer-info p {
+   margin: 12px 0;
+   font-size: 17px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.footer-info i {
+   color: #ffcc00;
+   margin-right: 10px;
+   font-size: 20px;
+}
+
+.footer-credits {
+   margin-top: 20px;
+   font-size: 16px;
+   opacity: 0.9;
+}
+
+.footer-credits strong {
+   color: #fc8804;
+}
+
+
 /* end */
 
 /* Modal Styling */
+
+
 .modal {
    display: none;
    position: fixed;
@@ -392,4 +470,73 @@ input:checked + .slider:before {
 
 .forgot-password a:hover {
    text-decoration: underline;
+}
+
+/* Style for the carousel container */
+.carousel {
+    width: 80%;
+    margin: 50px auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 30px;
+    text-align: center;
+}
+
+/* Style for the carousel inner content */
+.carousel-inner {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); /* For mobile devices, 1 column */
+    gap: 20px;
+}
+
+/* Media query for larger screens (tablet/desktop) */
+@media (min-width: 768px) {
+    .carousel-inner {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets and larger screens */
+    }
+}
+
+/* Media query for even larger screens (desktop) */
+@media (min-width: 1024px) {
+    .carousel-inner {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on large desktop screens */
+    }
+}
+
+/* Style for each review card */
+.review-card {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Style for the review text */
+.review-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+/* Style for the author name */
+.review-author {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Optional: Add some extra spacing between the review cards */
+.review-card + .review-card {
+    margin-top: 20px;
 }
