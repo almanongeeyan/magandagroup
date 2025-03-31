@@ -111,7 +111,8 @@
                                                             Session Details
                                                         </div><br><br>
                                                         <div class="h3-search" style="font-size:18px;line-height:30px">
-                                                            Doctor's name: &nbsp;&nbsp;<b>Dr. Jed Elrick Castilo</b><br>
+                                                            Clinician's name: &nbsp;&nbsp;<b>Dr. Jed Elrick
+                                                                Castilo</b><br>
                                                         </div>
                                                         <div class="h3-search" style="font-size:18px;">
                                                         </div><br>
