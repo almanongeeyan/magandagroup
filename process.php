@@ -94,7 +94,7 @@ if (isset($_POST["register"])) {
                             'type' => 'danger',
                             'message' => "Registration Failed, Try again",
                         ];
-                        header("location: registration.php");
+                        header("location: login.php");
                     }
                     exit(); // Stop further execution
                 } else {
@@ -102,7 +102,7 @@ if (isset($_POST["register"])) {
                         'type' => 'danger',
                         'message' => "Failed to send verification email.",
                     ];
-                    header("location: registration.php");
+                    header("location: login.php");
                     exit(); // Stop further execution
                 }
             }
@@ -112,7 +112,7 @@ if (isset($_POST["register"])) {
                 'type' => 'danger',
                 'message' => "Database error during email check: " . mysqli_error($conn),
             ];
-            header("location: registration.php");
+            header("location: login.php");
             exit();
         }
     } else {
@@ -120,7 +120,7 @@ if (isset($_POST["register"])) {
             'type' => 'danger',
             'message' => "Database connection error.",
         ];
-        header("location: registration.php");
+        header("location: login.php");
         exit();
     }
 }
