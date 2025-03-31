@@ -27,7 +27,13 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
+<?php 
 
+session_start();
+
+
+
+?>
 
 <body>
     <div class="container">

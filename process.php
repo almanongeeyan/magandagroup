@@ -36,7 +36,7 @@ function sendemail_verify($fname, $email, $verification_token): bool
         $email_template = "
         <h2> You have registered with ABC Malaria <h2>
         <h5> Verify your email address to Login with the given link belowwwwww, kapagod<h5>
-        <a href='http://localhost/animall/ABC/verify-email.php?token=$verification_token'> Click mo 'ko beh </a>
+        <a href='http://localhost/animall/magandagroup/verify-email.php?token=$verification_token'> Click mo 'ko beh </a>
         ";
 
         $mail->Body = $email_template; // Correct assignment
