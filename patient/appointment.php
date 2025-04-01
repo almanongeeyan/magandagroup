@@ -27,6 +27,47 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
+<?php
+
+session_start();
+require '../connection.php'; 
+
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
+
+// Check if user is logged in
+if (isset($_SESSION['auth']) && $_SESSION['auth'] == true) {
+    // User is logged in
+    $fname = $_SESSION['auth_user']['user_fname'];
+    $email = $_SESSION['auth_user']['user_email'];
+
+    // Fetch lname from the database
+    $query = "SELECT lname FROM patient WHERE email = ?";
+    $stmt = $conn->prepare($query); 
+    if ($stmt) {
+        $stmt->bind_param("s", $email); 
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result && $result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            $lname = $row['lname'];
+        } else {
+            echo "<p>Error fetching last name or no user found.</p>";
+        }
+        $stmt->close();
+    } else {
+        echo "<p>Error preparing statement for last name: " . $conn->error . "</p>";
+    }
+} else {
+    header("Location: ../tresspass/notresspass.php");
+    exit(0);
+}
+?>
 
 <body>
     <div class="container">
@@ -36,12 +77,12 @@
                     <td style="padding:10px" colspan="2">
                         <table border="0" class="profile-container">
                             <tr>
-                                <td width="30%" style="padding-left:20px">
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
+                                <td width="30%" style="padding-left:1px; text-align: left;">
+                                    <img src="../images/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">John Doe..</p>
-                                    <p class="profile-subtitle">john.doe@example.com</p>
+                                    <p class="profile-title"><?php echo htmlspecialchars($fname . ' ' . $lname); ?></p>
+                                    <p class="profile-subtitle"><?php echo htmlspecialchars($email); ?></p>
                                 </td>
                             </tr>
                             <tr>
@@ -55,9 +96,9 @@
                 </tr>
                 <tr class="menu-row">
                     <td class="menu-btn menu-icon-home">
-                        <a href="index.php" class="non-style-link-menu non-style-link-menu-active">
+                        <a href="index.php" class="non-style-link-menu">
                             <div>
-                                <i class="fas"></i>
+                                <i class="fas fa-home"></i>
                                 <p class="menu-text">Home</p>
                             </div>
                         </a>
@@ -65,12 +106,12 @@
                 </tr>
 
                 <tr class="menu-row">
-                    <td class="menu-btn menu-icon-session menu-active menu-icon-session-active"">
-                        <a href=" appointment.php" class="non-style-link-menu">
-                        <div>
-                            <i class="fas"></i>
-                            <p class="menu-text">Make an Appointment</p>
-                        </div>
+                    <td class="menu-btn menu-icon-session menu-active menu-icon-session-active">
+                        <a href="appointment.php" class="non-style-link-menu non-style-link-menu-active">
+                            <div>
+                                <i class="far fa-calendar-check"></i>
+                                <p class="menu-text">Make an Appointment</p>
+                            </div>
                         </a>
                     </td>
                 </tr>
@@ -78,7 +119,7 @@
                     <td class="menu-btn menu-icon-appoinment">
                         <a href="record.php" class="non-style-link-menu">
                             <div>
-                                <i class="fas"></i>
+                                <i class="fas fa-file-medical-alt"></i>
                                 <p class="menu-text">My Record</p>
                             </div>
                         </a>

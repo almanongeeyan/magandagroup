@@ -269,14 +269,16 @@ include 'process.php';
             </select>
 
             <label><i class="fa-solid fa-phone"></i> Contact Number</label>
-            <input type="tel" placeholder="Enter your contact number" name="cnumber" minlength="11" maxlength="11"
-                required>
+            <input type="tel" placeholder="Enter your contact number" name="cnumber" minlength="11" autocomplete="off"
+                maxlength="11" required>
 
             <label><i class="fa-solid fa-lock"></i> Password</label>
-            <input type="password" placeholder="Enter your password" name="password" minlength="8" required>
+            <input type="password" placeholder="Enter your password" name="password" minlength="8" autocomplete="off"
+                required>
 
             <label><i class="fa-solid fa-envelope"></i> Email</label>
-            <input type="email" placeholder="Enter your email" name="email" id="email" maxlength="50" required>
+            <input type="email" placeholder="Enter your email" name="email" id="email" maxlength="50" autocomplete="off"
+                required>
             <span class="tiny-text">This will serve as your username</span>
 
             <label class="switch-label">Emergency Injection</label>

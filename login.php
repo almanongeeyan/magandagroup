@@ -189,10 +189,11 @@ include 'connection.php';
 
         <form id="loginForm" action="process.php" method="POST">
             <label><i class="fa-solid fa-user"></i> Username</label>
-            <input type="email" placeholder="Enter your email" name="email" maxlength="50" required>
+            <input type="email" placeholder="Enter your email" name="email" maxlength="50" autocomplete="off" required>
 
             <label><i class="fa-solid fa-lock"></i> Password</label>
-            <input type="password" placeholder="Enter your password" name="password" minlength="8" required>
+            <input type="password" placeholder="Enter your password" name="password" minlength="8" autocomplete="off"
+                required>
 
             <button type="submit" class="btn btn-success" name="login">Login</button>
 

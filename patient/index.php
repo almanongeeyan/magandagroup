@@ -9,30 +9,53 @@
     <link rel="stylesheet" href="patient.css">
     <title>Dashboard</title>
     <style>
-    .dashbord-tables {
-        animation: transitionIn-Y-over 0.5s;
-    }
-
-    .filter-container {
-        animation: transitionIn-Y-bottom 0.5s;
-    }
-
-    .sub-table,
-    .anime {
-        animation: transitionIn-Y-bottom 0.5s;
-    }
+    /* ... your CSS ... */
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQmQa7GBRcz8lPvxhNF9glnAHWNDyPd1sXeRcLMEQbqYAmDv9ky9AzQoOVwoflJcEuOZimo6YHvsIA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<?php 
+<?php
 
 session_start();
+require '../connection.php'; 
+
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 
 
+// Check if user is logged in
+if (isset($_SESSION['auth']) && $_SESSION['auth'] == true) {
+    // User is logged in
+    $fname = $_SESSION['auth_user']['user_fname'];
+    $email = $_SESSION['auth_user']['user_email'];
+
+    // Fetch lname from the database
+    $query = "SELECT lname FROM patient WHERE email = ?";
+    $stmt = $conn->prepare($query); 
+    if ($stmt) {
+        $stmt->bind_param("s", $email); 
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result && $result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            $lname = $row['lname'];
+        } else {
+            echo "<p>Error fetching last name or no user found.</p>";
+        }
+        $stmt->close();
+    } else {
+        echo "<p>Error preparing statement for last name: " . $conn->error . "</p>";
+    }
+} else {
+    header("Location: ../notresspass.php");
+    exit(0);
+}
 ?>
 
 <body>
@@ -43,12 +66,14 @@ session_start();
                     <td style="padding:10px" colspan="2">
                         <table border="0" class="profile-container">
                             <tr>
-                                <td width="30%" style="padding-left:20px">
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
+                                <td width="30%" style="padding-left:1px; text-align: left;">
+                                    <img src="../images/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
-                                <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">John Doe..</p>
-                                    <p class="profile-subtitle">john.doe@example.com</p>
+                                <td style="padding:0px;margin:0px; text-align: left;">
+                                    <p class="profile-title" style="text-align: left;">
+                                        <?php echo htmlspecialchars($fname . ' ' . $lname); ?></p>
+                                    <p class="profile-subtitle" style="text-align: left;">
+                                        <?php echo htmlspecialchars($email); ?></p>
                                 </td>
                             </tr>
                             <tr>
@@ -64,7 +89,7 @@ session_start();
                     <td class="menu-btn menu-icon-home menu-active menu-icon-home-active">
                         <a href="index.php" class="non-style-link-menu non-style-link-menu-active">
                             <div>
-                                <i class="fas"></i>
+                                <i class="fas fa-home"></i>
                                 <p class="menu-text">Home</p>
                             </div>
                         </a>
@@ -75,7 +100,7 @@ session_start();
                     <td class="menu-btn menu-icon-session">
                         <a href="appointment.php" class="non-style-link-menu">
                             <div>
-                                <i class="fas"></i>
+                                <i class="far fa-calendar-check"></i>
                                 <p class="menu-text">Make an Appointment</p>
                             </div>
                         </a>
@@ -85,7 +110,7 @@ session_start();
                     <td class="menu-btn menu-icon-appoinment">
                         <a href="record.php" class="non-style-link-menu">
                             <div>
-                                <i class="fas"></i>
+                                <i class="fas fa-file-medical-alt"></i>
                                 <p class="menu-text">My Record</p>
                             </div>
                         </a>
@@ -99,19 +124,15 @@ session_start();
                     <td colspan="1" class="nav-bar">
                         <p style="font-size: 23px;padding-left:12px;font-weight: 600;margin-left:20px;">Home</p>
                     </td>
-
-
-
                 </tr>
                 <tr>
                     <td colspan="4">
-
                         <center>
                             <table class="filter-container patient-header" style="border: none;width:95%" border="0">
                                 <tr>
                                     <td>
                                         <h3>Welcome!</h3>
-                                        <h1>John Doe.</h1>
+                                        <h1><?php echo htmlspecialchars($fname . ' ' . $lname); ?>.</h1>
                                         <p>Welcome to our dedicated Animal Bite Clinic, conveniently located in
                                             Caloocan, Metro Manila. Our primary focus is providing expert and immediate
                                             care for all types of animal bites. We understand the serious risks
@@ -124,12 +145,10 @@ session_start();
                                             required rabies injections.</p>
                                     </td>
                                 </tr>
-
+                            </table>
                         </center>
-
                     </td>
                 </tr>
-
             </table>
         </div>
     </div>
