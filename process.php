@@ -72,7 +72,7 @@ if (isset($_POST["register"])) {
                     'type' => 'danger',
                     'message' => "Email already exists",
                 ];
-                header("location: registration.php");
+                header("location: login.php");
                 exit(); // Stop further execution
             } else {
                 $email_sent = sendemail_verify($fname, $email, $verification_token);
