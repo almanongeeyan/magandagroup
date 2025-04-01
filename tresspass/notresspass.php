@@ -67,7 +67,7 @@
 
     <div class="meme-container">
         <h1>🚫 You Shall Not Pass! 🚫</h1>
-        <img src="../images/boromir_one_does_not.jpg" alt="One Does Not Simply..." class="meme-image">
+
         <p>Looks like you're trying to access something you shouldn't, buddy.</p>
         <p>Are you sure you have the <span style="font-weight: bold; color: #27ae60;">secret handshake</span> and the
             <span style="font-weight: bold; color: #f39c12;">magic password</span>?
@@ -76,13 +76,13 @@
 
     <div class="meme-container">
         <h2>🤔 Wait... Are you supposed to be here? 🤔</h2>
-        <img src="../images/is_this_your_stop.jpg" alt="Is This Your Stop?" class="meme-image">
+
         <p>Maybe you took a wrong turn on the internet highway?</p>
         <p>If you think you *do* belong here, you might need to prove it...</p>
     </div>
 
     <div>
-        <a href="../login.php" class="login-button">🔑 Prove Your Worth (Login) 🔑</a>
+        <a href="../login.php" class="login-button">🔑 Login Your Credentials 🔑</a>
     </div>
 
     <p style="margin-top: 30px; color: #777; font-size: small;">This is a highly secure and definitely not hastily put
