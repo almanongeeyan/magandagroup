@@ -248,7 +248,7 @@ include 'process.php';
         }
         ?>
 
-        <form id="registrationForm" action="process.php" method="POST">
+        <form id="registrationForm" action="tresspass/process.php" method="POST">
             <label><i class="fa-solid fa-user"></i> First Name</label>
             <input type="text" placeholder="Enter your first name" name="fname" maxlength="20" autocomplete="off"
                 required>

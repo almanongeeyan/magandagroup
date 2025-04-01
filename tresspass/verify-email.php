@@ -7,7 +7,7 @@ if (!$conn) {
         'type' => 'danger',
         'message' => "Database connection failed: " . mysqli_connect_error(),
     ];
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit(0);
 }
 
@@ -28,7 +28,7 @@ if (isset($_GET['token'])) {
                     'type' => 'danger',
                     'message' => "Failed to update verification status, try again. Database error: " . mysqli_error($conn),
                 ];
-                header("Location: login.php");
+                header("Location: ../login.php");
                 exit(0);
             }
 
@@ -37,14 +37,14 @@ if (isset($_GET['token'])) {
                     'type' => 'success',
                     'message' => "Your email has been successfully verified! You can now log in with your account.",
                 ];
-                header("Location: login.php");
+                header("Location: ../patient/index.php");
                 exit();
             } else {
                 $_SESSION['alert'] = [
                     'type' => 'danger',
                     'message' => "Failed to update verification status, try again.",
                 ];
-                header("Location: login.php");
+                header("Location: ../login.php");
                 exit(0);
             }
         } else {
@@ -52,7 +52,7 @@ if (isset($_GET['token'])) {
                 'type' => 'info',
                 'message' => "This email has already been verified.",
             ];
-            header("Location: login.php");
+            header("Location: ../login.php");
             exit(0);
         }
     } else {
@@ -60,7 +60,7 @@ if (isset($_GET['token'])) {
             'type' => 'danger',
             'message' => "Invalid verification token.",
         ];
-        header("Location: login.php");
+        header("Location: ../login.php");
         exit(0);
     }
 } else {
@@ -68,7 +68,7 @@ if (isset($_GET['token'])) {
         'type' => 'danger',
         'message' => "Invalid verification link.",
     ];
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit(0);
 }
 ?>

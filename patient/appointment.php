@@ -30,7 +30,7 @@
 <?php
 
 session_start();
-require '../connection.php'; 
+require '../tresspass/connection.php'; 
 
 
 ini_set('display_errors', 1);

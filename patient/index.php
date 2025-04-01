@@ -19,7 +19,7 @@
 <?php
 
 session_start();
-require '../connection.php'; 
+require '../tresspass/connection.php'; 
 
 
 ini_set('display_errors', 1);
@@ -53,7 +53,7 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] == true) {
         echo "<p>Error preparing statement for last name: " . $conn->error . "</p>";
     }
 } else {
-    header("Location: ../notresspass.php");
+    header("Location: ../tresspass/notresspass.php");
     exit(0);
 }
 ?>

@@ -26,17 +26,17 @@ function sendemail_verify($fname, $email, $verification_token): bool
         $mail->Port = 587;
 
         //Recipients
-        $mail->setFrom('almanongeeyan@gmail.com', $fname); // Use your Gmail address as sender
+        $mail->setFrom('almanongeeyan@gmail.com', 'ANIMAL BITE CLINIC'); // Use your Gmail address as sender
         $mail->addAddress($email);                                     //Add a recipient
 
         //Content
         $mail->isHTML(true);                                        //Set email format to HTML
-        $mail->Subject = 'Email Verification mo beh, verify mo na yan!';
+        $mail->Subject = 'Email Verification mo beh, i-verify mo na yan!';
 
         $email_template = "
         <h2> You have registered with ABC Malaria <h2>
-        <h5> Verify your email address to Login with the given link belowwwwww, kapagod<h5>
-        <a href='http://localhost/magandagroup/verify-email.php?token=$verification_token'> Click mo 'ko beh </a>
+        <h5> Click mo lang beh yung link sa baba para verified ka na, kapagod 'tong phpmailer jusko. */nag cry huhuhu<h5>
+        <a href='http://localhost/magandagroup/tresspass/verify-email.php?token=$verification_token'> Click mo 'ko beh </a>
         ";
 
         $mail->Body = $email_template; // Correct assignment
@@ -72,7 +72,7 @@ if (isset($_POST["register"])) {
                     'type' => 'danger',
                     'message' => "Email already exists",
                 ];
-                header("location: login.php");
+                header("location: ../login.php");
                 exit(); // Stop further execution
             } else {
                 $email_sent = sendemail_verify($fname, $email, $verification_token);
@@ -88,13 +88,13 @@ if (isset($_POST["register"])) {
                             'type' => 'success',
                             'message' => "Registration Successful! Please verify your Email Address to Login.",
                         ];
-                        header("location: login.php");
+                        header("location: ../login.php");
                     } else {
                         $_SESSION['alert'] = [
                             'type' => 'danger',
                             'message' => "Registration Failed, Try again",
                         ];
-                        header("location: login.php");
+                        header("location: ../login.php");
                     }
                     exit(); // Stop further execution
                 } else {
@@ -102,7 +102,7 @@ if (isset($_POST["register"])) {
                         'type' => 'danger',
                         'message' => "Failed to send verification email.",
                     ];
-                    header("location: login.php");
+                    header("location: ../login.php");
                     exit(); // Stop further execution
                 }
             }
@@ -112,7 +112,7 @@ if (isset($_POST["register"])) {
                 'type' => 'danger',
                 'message' => "Database error during email check: " . mysqli_error($conn),
             ];
-            header("location: login.php");
+            header("location: ../login.php");
             exit();
         }
     } else {
@@ -120,7 +120,7 @@ if (isset($_POST["register"])) {
             'type' => 'danger',
             'message' => "Database connection error.",
         ];
-        header("location: login.php");
+        header("location: ../login.php");
         exit();
     }
 }
@@ -134,7 +134,7 @@ if (isset($_POST['login'])) {
             'type' => 'danger',
             'message' => "Please enter both email and password.",
         ];
-        header("Location: login.php");
+        header("Location: ../login.php");
         exit();
     }
 
@@ -156,14 +156,14 @@ if (isset($_POST['login'])) {
                     'type' => 'success',
                     'message' => "Logged in successfully!",
                 ];
-                header("Location: patient/index.php"); // Redirect to your homepage
+                header("Location: ../patient/index.php"); // Redirect to your homepage
                 exit();
             } else {
                 $_SESSION['alert'] = [
                     'type' => 'danger',
                     'message' => "Invalid password.",
                 ];
-                header("Location: login.php");
+                header("Location: ../login.php");
                 exit();
             }
         } else {
@@ -171,7 +171,7 @@ if (isset($_POST['login'])) {
                 'type' => 'warning',
                 'message' => "Your email address is not yet verified. Please check your inbox and click the verification link.",
             ];
-            header("Location: login.php");
+            header("Location: ../login.php");
             exit();
         }
     } else {
@@ -179,7 +179,7 @@ if (isset($_POST['login'])) {
             'type' => 'danger',
             'message' => "Invalid email address.",
         ];
-        header("Location: login.php");
+        header("Location: ../login.php");
         exit();
     }
 }

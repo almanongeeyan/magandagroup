@@ -187,7 +187,7 @@ include 'connection.php';
         }
         ?>
 
-        <form id="loginForm" action="process.php" method="POST">
+        <form id="loginForm" action="tresspass/process.php" method="POST">
             <label><i class="fa-solid fa-user"></i> Username</label>
             <input type="email" placeholder="Enter your email" name="email" maxlength="50" autocomplete="off" required>
 
