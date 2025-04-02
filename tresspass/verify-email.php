@@ -37,7 +37,7 @@ if (isset($_GET['token'])) {
                     'type' => 'success',
                     'message' => "Your email has been successfully verified! You can now log in with your account.",
                 ];
-                header("Location: ../patient/index.php");
+                header("Location: ../login.php");
                 exit();
             } else {
                 $_SESSION['alert'] = [
