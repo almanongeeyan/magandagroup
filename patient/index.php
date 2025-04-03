@@ -31,8 +31,8 @@ error_reporting(E_ALL);
 // Check if user is logged in
 if (isset($_SESSION['auth']) && $_SESSION['auth'] == true) {
     // User is logged in
-    $fname = $_SESSION['auth_user']['user_fname'];
-    $email = $_SESSION['auth_user']['user_email'];
+    $fname = $_SESSION['auth_user']['fname'];
+    $email = $_SESSION['auth_user']['email'];
 
     // Fetch lname from the database
     $query = "SELECT lname FROM patient WHERE email = ?";
@@ -112,6 +112,16 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] == true) {
                             <div>
                                 <i class="fas fa-file-medical-alt"></i>
                                 <p class="menu-text">My Record</p>
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+                <tr class="menu-row">
+                    <td class="menu-btn menu-icon-review">
+                        <a href="review.php" class="non-style-link-menu">
+                            <div>
+                                <i class="fas fa-star"></i>
+                                <p class="menu-text">Review</p>
                             </div>
                         </a>
                     </td>

@@ -138,7 +138,8 @@ if (isset($_POST['login'])) {
         exit();
     }
 
-    $query = "SELECT fname, password, verify_status FROM patient WHERE email = '$email' LIMIT 1";
+    // Modify this query to also select user_id
+    $query = "SELECT user_id, fname, lname, password, verify_status FROM patient WHERE email = '$email' LIMIT 1";
     $query_run = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($query_run) > 0) {
@@ -149,8 +150,9 @@ if (isset($_POST['login'])) {
                 // Password is correct, log the user in
                 $_SESSION['auth'] = true;
                 $_SESSION['auth_user'] = [
-                    'user_fname' => $row['fname'],
-                    'user_email' => $email,
+                    'user_id' => $row['user_id'], // Store user_id here
+                    'fname' => $row['fname'],      // Use 'fname'
+                    'email' => $email,
                 ];
                 $_SESSION['alert'] = [
                     'type' => 'success',
@@ -183,5 +185,5 @@ if (isset($_POST['login'])) {
         exit();
     }
 }
-
+?>
 ?>

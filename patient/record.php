@@ -42,8 +42,8 @@ error_reporting(E_ALL);
 // Check if user is logged in
 if (isset($_SESSION['auth']) && $_SESSION['auth'] == true) {
     // User is logged in
-    $fname = $_SESSION['auth_user']['user_fname'];
-    $email = $_SESSION['auth_user']['user_email'];
+    $fname = $_SESSION['auth_user']['fname'];
+    $email = $_SESSION['auth_user']['email'];
 
     // Fetch lname from the database
     $query = "SELECT lname FROM patient WHERE email = ?";
@@ -125,29 +125,46 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] == true) {
                         </a>
                     </td>
                 </tr>
+                <tr class="menu-row">
+                    <td class="menu-btn menu-icon-review">
+                        <a href="review.php" class="non-style-link-menu">
+                            <div>
+                                <i class="fas fa-star"></i>
+                                <p class="menu-text">Review</p>
+                            </div>
+                        </a>
+                    </td>
+                </tr>
             </table>
         </div>
 
+        <div class="dash-body">
+            <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;margin-top:25px; ">
+                <td colspan="1" class="nav-bar">
+                    <p style="font-size: 23px;padding-left:12px;font-weight: 600;margin-left:20px;">My Record</p>
+                </td>
 
-        <script>
-        // Basic script to toggle active class on menu items (you can enhance this)
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuButtons = document.querySelectorAll('.menu-btn');
-            menuButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all menu buttons
-                    menuButtons.forEach(btn => {
-                        btn.classList.remove('menu-active');
-                        btn.classList.remove(btn.classList[1] +
-                            '-active'); // Remove icon active class
+
+                <script>
+                // Basic script to toggle active class on menu items (you can enhance this)
+                document.addEventListener('DOMContentLoaded', function() {
+                    const menuButtons = document.querySelectorAll('.menu-btn');
+                    menuButtons.forEach(button => {
+                        button.addEventListener('click', function() {
+                            // Remove active class from all menu buttons
+                            menuButtons.forEach(btn => {
+                                btn.classList.remove('menu-active');
+                                btn.classList.remove(btn.classList[1] +
+                                    '-active'); // Remove icon active class
+                            });
+                            // Add active class to the clicked button
+                            this.classList.add('menu-active');
+                            this.classList.add(this.classList[1] +
+                                '-active'); // Add icon active class
+                        });
                     });
-                    // Add active class to the clicked button
-                    this.classList.add('menu-active');
-                    this.classList.add(this.classList[1] + '-active'); // Add icon active class
                 });
-            });
-        });
-        </script>
+                </script>
 </body>
 
 </html>

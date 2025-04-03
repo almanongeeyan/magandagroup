@@ -18,13 +18,81 @@ include 'includes/navbar.php';
     </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+    .shop-reviews {
+        padding: 40px 20px;
+        background-color: #f8f8f8;
+        text-align: center;
+    }
+
+    .review-title {
+        font-size: 2.5em;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .carousel {
+        overflow: hidden;
+        width: 90%;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .review-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 30px;
+        margin: 10px;
+        width: 100%;
+        /* Each card takes full width in the flex container */
+        box-sizing: border-box;
+        text-align: left;
+    }
+
+    .review-text {
+        font-size: 1.1em;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .review-author {
+        font-size: 1em;
+        color: #777;
+        font-style: italic;
+        text-align: right;
+    }
+
+    /* Basic carousel navigation (you can enhance this with JavaScript) */
+    .carousel-navigation {
+        margin-top: 20px;
+    }
+
+    .carousel-navigation button {
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        color: #007bff;
+        cursor: pointer;
+        margin: 0 10px;
+    }
+
+    .carousel-navigation button:hover {
+        color: #0056b3;
+    }
+    </style>
 
 </head>
 
 <body>
 
 
-    <!-- Dog Rabies Modal -->
     <div id="dogRabiesModal" class="modal">
         <div class="modal-content" style="text-align: left;">
             <span class="close" onclick="closeDogRabiesModal()">&times;</span>
@@ -56,7 +124,6 @@ include 'includes/navbar.php';
         </div>
     </div>
 
-    <!-- Cat Rabies Modal -->
     <div id="catRabiesModal" class="modal">
         <div class="modal-content" style="text-align: left;">
             <span class="close" onclick="closeCatRabiesModal()">&times;</span>
@@ -89,7 +156,6 @@ include 'includes/navbar.php';
     </div>
 
 
-    <!-- Rat Rabies Modal -->
     <div id="ratRabiesModal" class="modal">
         <div class="modal-content" style="text-align: left;">
             <span class="close" onclick="closeRatRabiesModal()">&times;</span>
@@ -127,10 +193,6 @@ include 'includes/navbar.php';
 
 
 
-    <!-- header section ends -->
-
-    <!-- home section starts -->
-
     <section class="home" id="home">
 
         <div class="content">
@@ -139,8 +201,6 @@ include 'includes/navbar.php';
         </div>
 
     </section>
-
-    <!-- home section ends -->
 
     <section class="services" id="services">
 
@@ -181,34 +241,37 @@ include 'includes/navbar.php';
     <section class="shop-reviews">
         <h2 class="review-title">What Our Customers Say</h2>
 
-        <div class="carousel">
-            <div class="carousel-inner">
-                <!-- Review 1 -->
-                <div class="review-card">
-                    <p class="review-text">"Great service! The staff was very friendly and knowledgeable. Highly
-                        recommended!"</p>
-                    <h4 class="review-author">- Jane Doe</h4>
-                </div>
+        <?php
+        $review_query = "SELECT r.message, p.fname, p.lname
+                         FROM review r
+                         JOIN patient p ON r.user_id = p.user_id";
+        $review_result = $conn->query($review_query);
 
-                <!-- Review 2 -->
-                <div class="review-card">
-                    <p class="review-text">"I had a smooth experience getting my pet vaccinated. Thank you, ABC!"</p>
-                    <h4 class="review-author">- Mark Smith</h4>
-                </div>
-
-                <!-- Review 3 -->
-                <div class="review-card">
-                    <p class="review-text">"Affordable and reliable service. My dog is now protected from rabies!"</p>
-                    <h4 class="review-author">- Emily Johnson</h4>
-                </div>
-
-                <!-- Review 4 -->
-                <div class="review-card">
-                    <p class="review-text">"Excellent customer service! They explained everything in detail."</p>
-                    <h4 class="review-author">- Alex Brown</h4>
-                </div>
-            </div>
-        </div>
+        if ($review_result && $review_result->num_rows > 0) {
+            echo '<div class="carousel">';
+            echo '    <div class="carousel-inner">';
+            while ($row = $review_result->fetch_assoc()) {
+                $review_message = htmlspecialchars($row['message']);
+                $reviewer_fname = htmlspecialchars($row['fname']);
+                $reviewer_lname = htmlspecialchars($row['lname']);
+                echo '        <div class="review-card">';
+                echo '            <p class="review-text">' . $review_message . '</p>';
+                echo '            <h4 class="review-author">- ' . $reviewer_fname . ' ' . $reviewer_lname . '</h4>';
+                echo '        </div>';
+            }
+            echo '    </div>';
+            echo '</div>';
+            // Basic carousel navigation (you can implement JavaScript for actual sliding)
+            if ($review_result->num_rows > 1) {
+                echo '<div class="carousel-navigation">';
+                echo '    <button onclick="scrollCarousel(\'left\')"><i class="fas fa-chevron-left"></i></button>';
+                echo '    <button onclick="scrollCarousel(\'right\')"><i class="fas fa-chevron-right"></i></button>';
+                echo '</div>';
+            }
+        } else {
+            echo '<p>No reviews available yet.</p>';
+        }
+        ?>
     </section>
     <footer class="footer">
         <div class="footer-container">
@@ -265,6 +328,41 @@ include 'includes/navbar.php';
 
     <script src="js/script.js"></script>
     <script src="js/sweetalert.js"></script>
+    <script>
+    const carouselInner = document.querySelector('.carousel-inner');
+    const reviewCards = document.querySelectorAll('.review-card');
+    let currentIndex = 0;
+    const cardWidth = reviewCards[0] ? reviewCards[0].offsetWidth + 20 : 0; // Add margin
+
+    function updateCarousel() {
+        carouselInner.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+
+    function scrollCarousel(direction) {
+        if (direction === 'left') {
+            currentIndex = Math.max(currentIndex - 1, 0);
+        } else if (direction === 'right') {
+            currentIndex = Math.min(currentIndex + 1, reviewCards.length - 1);
+        }
+        updateCarousel();
+    }
+
+    // Make sure the carousel is positioned correctly on load if there are reviews
+    window.onload = updateCarousel;
+    window.addEventListener('resize', () => {
+        // Recalculate cardWidth on resize for responsiveness
+        cardWidth = reviewCards[0] ? reviewCards[0].offsetWidth + 20 : 0;
+        updateCarousel();
+    });
+
+    // Modal functions (assuming these are in your js/script.js)
+    // function openDogRabiesModal() {}
+    // function closeDogRabiesModal() {}
+    // function openCatRabiesModal() {}
+    // function closeCatRabiesModal() {}
+    // function openRatRabiesModal() {}
+    // function closeRatRabiesModal() {}
+    </script>
 
 </body>
 
