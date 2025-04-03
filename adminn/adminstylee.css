@@ -1,0 +1,274 @@
+/* adminstyle.css */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    overflow-x: hidden;
+    width: 100vw;
+    background-color: #f8f9fa; /* Very light grey background */
+    color: #495057; /* Dark grey text */
+}
+
+.header {
+    background-color: #0a78e7; /* Dark grey header */
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    transition: left 0.3s ease-in-out;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border-radius: 0 0 15px 15px; /* More pronounced rounded bottom */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menu-toggle {
+    font-size: 26px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+    margin-right: 20px;
+    outline: none;
+    z-index: 1003; /* Ensure toggle is clickable */
+}
+
+.sidebar {
+    width: 260px; /* Slightly wider sidebar */
+    height: 100vh;
+    background: #212529; /* Even darker grey sidebar */
+    color: #adb5bd; /* Lighter grey text for sidebar */
+    position: fixed;
+    top: 0;
+    left: -260px;
+    transition: left 0.3s ease-in-out;
+    padding-top: 70px; /* Adjust for header height */
+    z-index: 1001;
+    text-align: left; /* Align text to the left */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar .editable-name {
+    color: #fff; /* White text for the name */
+    font-size: 20px;
+    margin: 25px 20px;
+    font-weight: bold;
+    text-align: center;
+    width: calc(100% - 40px);
+    outline: none;
+    border: none;
+    background: transparent;
+    padding: 12px 0;
+    border-bottom: 1px solid #495057; /* Subtle separator */
+    z-index: 1002; /* Ensure text is clickable */
+}
+
+.sidebar .nav-links {
+    margin-top: 15px;
+    padding: 0;
+    list-style: none; /* Remove default list styling */
+    z-index: 1002; /* Ensure links are clickable */
+}
+
+.sidebar .nav-links li {
+    margin-bottom: 5px; /* Spacing between links */
+}
+
+.sidebar .nav-links a {
+    display: flex;
+    align-items: center;
+    color: #adb5bd;
+    padding: 18px 25px; /* More padding for better touch targets */
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 0; /* No rounded corners for links */
+    z-index: 1002; /* Ensure links are clickable */
+}
+
+.sidebar .nav-links a i {
+    margin-right: 18px;
+    font-size: 1.2em;
+    width: 24px; /* Fixed width for icons */
+    text-align: center;
+    z-index: 1002; /* Ensure icons are clickable */
+}
+
+.sidebar .nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* Light hover effect */
+    color: #fff; /* White text on hover */
+}
+
+.content-wrapper {
+    transition: left 0.3s ease-in-out;
+    position: relative;
+    padding: 30px;
+    left: 0;
+    margin-top: 85px; /* Adjust for header height */
+    padding-left: 20px;
+    padding-right: 20px;
+    z-index: 999; /* Ensure content is below open sidebar */
+}
+
+.menu-open .sidebar {
+    left: 0;
+    z-index: 1002; /* Higher z-index when open */
+}
+
+.menu-open .header,
+.menu-open .content-wrapper {
+    left: 260px;
+}
+
+.analytics-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-top: 40px;
+    padding: 40px;
+    background-color: #fff; /* White container for content */
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    z-index: 998; /* Ensure analytics are below open sidebar */
+}
+
+.analytics-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 30px;
+    text-align: center;
+    z-index: 998;
+}
+
+.analytics-row {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    max-width: 1000px;
+    z-index: 998;
+}
+
+.analytics-form {
+    width: 100%;
+    max-width: 350px;
+    padding: 30px;
+    background: #f8f9fa; /* Light grey for forms */
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    z-index: 998;
+}
+
+.analytics-form h3 {
+    color: #495057;
+    margin-bottom: 20px;
+    font-size: 22px;
+    z-index: 998;
+}
+
+/* Logout Button Styling */
+.sidebar .logout-button {
+    padding: 20px 25px;
+    text-align: left; /* Align logout text to the left */
+    border-top: 1px solid #495057;
+    margin-top: 20px;
+    z-index: 1002; /* Ensure logout is clickable */
+}
+
+.sidebar .logout-button a {
+    display: flex;
+    align-items: center;
+    color: #adb5bd;
+    text-decoration: none;
+    padding: 15px 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 5px;
+    z-index: 1002; /* Ensure logout link is clickable */
+}
+
+.sidebar .logout-button a i {
+    margin-right: 18px;
+    font-size: 1.2em;
+    width: 24px;
+    text-align: center;
+    z-index: 1002; /* Ensure logout icon is clickable */
+}
+
+.sidebar .logout-button a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+/* Styles for the appointments page */
+.appointments-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+}
+
+.appointments-page h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    text-align: center; /* Center the heading text */
+}
+
+.appointments-table-container {
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 90%; /* Adjust table width as needed */
+    max-width: 1200px; /* Maximum width for the table */
+    margin-bottom: 30px; /* Add some space below the table */
+}
+
+.appointments-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.appointments-table-container th,
+.appointments-table-container td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.appointments-table-container th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: left; /* Keep header text left-aligned within centered table */
+}
+
+.appointments-table-container tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.appointments-table-container tbody tr:hover {
+    background-color: #e9ecef;
+    transition: background-color 0.3s ease;
+}
+
+.appointments-page .no-appointments {
+    color: #6c757d;
+    margin-top: 30px;
+    font-style: italic;
+    padding: 15px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    text-align: center; /* Center the no appointments message */
+}
