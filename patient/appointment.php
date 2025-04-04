@@ -98,8 +98,8 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] == true) {
             $booking_type = 'danger';
         }
 
-        // Check if the user has already booked an appointment for today
-        $check_query = "SELECT appointment_id FROM appointment WHERE user_id = ? AND appointment_date = CURDATE()";
+        // Check if the user has already booked any appointment
+        $check_query = "SELECT appointment_id FROM appointment WHERE user_id = ?";
         $check_stmt = $conn->prepare($check_query);
         if ($check_stmt) {
             $check_stmt->bind_param("i", $user_id);
@@ -140,8 +140,8 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] == true) {
             }
         }
 
-        // Count the number of appointments for the user for today and add one
-        $query_count = "SELECT COUNT(appointment_id) AS appointment_count FROM appointment WHERE user_id = ? AND appointment_date = CURDATE()";
+        // Count the number of appointments for the user for today and add one (this is now for display)
+        $query_count = "SELECT COUNT(appointment_id) AS appointment_count FROM appointment WHERE user_id = ?";
         $stmt_count = $conn->prepare($query_count);
         if ($stmt_count) {
             $stmt_count->bind_param("i", $user_id);
@@ -149,9 +149,9 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] == true) {
             $result_count = $stmt_count->get_result();
             if ($result_count && $result_count->num_rows == 1) {
                 $row_count = $result_count->fetch_assoc();
-                $appointment_count = $row_count['appointment_count'] + 1; // Increment the count
+                $appointment_count = $row_count['appointment_count'] + 1; // Increment the count for potential next booking
             } else {
-                $appointment_count = 1; // Default to 1 if no appointments found for today
+                $appointment_count = 1; // Default to 1 if no appointments found
             }
             $stmt_count->close();
         } else {
