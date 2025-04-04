@@ -34,7 +34,7 @@
                 }
                 return (...args) => target(prop, ...args)
             }
-        }) a
+        })
     }
     const onLoad = function() {
         const script = document.createElement("script");

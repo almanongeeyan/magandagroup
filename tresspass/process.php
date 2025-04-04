@@ -27,10 +27,10 @@ function sendemail_verify($fname, $email, $verification_token): bool
 
         //Recipients
         $mail->setFrom('almanongeeyan@gmail.com', 'ANIMAL BITE CLINIC'); // Use your Gmail address as sender
-        $mail->addAddress($email);                                        //Add a recipient
+        $mail->addAddress($email);                                      //Add a recipient
 
         //Content
-        $mail->isHTML(true);                                           //Set email format to HTML
+        $mail->isHTML(true);                                          //Set email format to HTML
         $mail->Subject = 'Email Verification mo beh, i-verify mo na yan!';
 
         $email_template = "
@@ -129,7 +129,7 @@ if (isset($_POST["register"])) {
                 if ($email_sent) {
                     $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
                     $query = "INSERT INTO patient(fname, lname, age, gender, cnumber, password, email, verification_token, email_verified_at, verify_status)
-                                      VALUES ('$fname', '$lname', '$age', '$gender', '$cnumber', '$encrypted_password', '$email', '$verification_token', NULL, '0')";
+                                    VALUES ('$fname', '$lname', '$age', '$gender', '$cnumber', '$encrypted_password', '$email', '$verification_token', NULL, '0')";
                     $query_run = mysqli_query($conn, $query);
 
                     if ($query_run) {
@@ -191,76 +191,95 @@ if (isset($_POST['login'])) {
     $patient_query = "SELECT user_id, fname, lname, password, verify_status FROM patient WHERE email = '$username' LIMIT 1";
     $patient_query_run = mysqli_query($conn, $patient_query);
 
-    if (mysqli_num_rows($patient_query_run) > 0) {
-        $row = mysqli_fetch_assoc($patient_query_run);
-        if ($row['verify_status'] == '1') {
-            // Email is verified, now check password
-            if (password_verify($password, $row['password'])) {
-                // Password is correct, log the patient in
-                $_SESSION['auth'] = true;
-                $_SESSION['auth_user'] = [
-                    'user_id' => $row['user_id'],
-                    'fname' => $row['fname'],
-                    'email' => $username, // Store as email even if it was username
-                ];
-                $_SESSION['alert'] = [
-                    'type' => 'success',
-                    'message' => "Logged in successfully!",
-                ];
-                header("Location: ../patient/index.php"); // Redirect to patient dashboard
-                exit();
+    if ($patient_query_run) { // Check if the query was successful
+        if (mysqli_num_rows($patient_query_run) > 0) {
+            $row = mysqli_fetch_assoc($patient_query_run);
+            if ($row['verify_status'] == '1') {
+                // Email is verified, now check password
+                if (password_verify($password, $row['password'])) {
+                    // Password is correct, log the patient in
+                    $_SESSION['auth'] = true;
+                    $_SESSION['auth_user'] = [
+                        'user_id' => $row['user_id'],
+                        'fname' => $row['fname'],
+                        'email' => $username, // Store as email even if it was username
+                    ];
+                    $_SESSION['alert'] = [
+                        'type' => 'success',
+                        'message' => "Logged in successfully!",
+                    ];
+                    header("Location: ../patient/index.php"); // Redirect to patient dashboard
+                    exit();
+                } else {
+                    $_SESSION['alert'] = [
+                        'type' => 'danger',
+                        'message' => "Invalid password.",
+                    ];
+                    header("Location: ../login.php");
+                    exit();
+                }
             } else {
                 $_SESSION['alert'] = [
-                    'type' => 'danger',
-                    'message' => "Invalid password.",
+                    'type' => 'warning',
+                    'message' => "Your email address is not yet verified. Please check your inbox and click the verification link.",
                 ];
                 header("Location: ../login.php");
                 exit();
             }
         } else {
-            $_SESSION['alert'] = [
-                'type' => 'warning',
-                'message' => "Your email address is not yet verified. Please check your inbox and click the verification link.",
-            ];
-            header("Location: ../login.php");
-            exit();
-        }
-    } else {
-        // Patient not found, check for admin login
-        $admin_query = "SELECT username, password FROM admin WHERE username = '$username' LIMIT 1";
-        $admin_query_run = mysqli_query($conn, $admin_query);
+            // Patient not found, check for admin login
+            $admin_query = "SELECT username, password FROM admin WHERE username = '$username' LIMIT 1";
+            $admin_query_run = mysqli_query($conn, $admin_query);
 
-        if (mysqli_num_rows($admin_query_run) > 0) {
-            $row = mysqli_fetch_assoc($admin_query_run);
-            // Password check for admin (INSECURE - FOR TESTING ONLY)
-            if ($password === $row['password']) {
-                // Password is correct, log the admin in
-                $_SESSION['admin_auth'] = true; // Set admin authentication session
-                $_SESSION['admin_user'] = [
-                    'username' => $row['username'],
-                ];
-                $_SESSION['alert'] = [
-                    'type' => 'success',
-                    'message' => "Admin logged in successfully!",
-                ];
-                header("Location: ../adminn/index.php"); // Redirect to admin dashboard
-                exit();
+            if ($admin_query_run) { // Check if the query was successful
+                if (mysqli_num_rows($admin_query_run) > 0) {
+                    $row = mysqli_fetch_assoc($admin_query_run);
+                    // Password check for admin (INSECURE - FOR TESTING ONLY)
+                    if ($password === $row['password']) {
+                        // Password is correct, log the admin in
+                        $_SESSION['admin_auth'] = true; // Set admin authentication session
+                        $_SESSION['admin_user'] = [
+                            'username' => $row['username'],
+                        ];
+                        $_SESSION['alert'] = [
+                            'type' => 'success',
+                            'message' => "Admin logged in successfully!",
+                        ];
+                        header("Location: ../adminn/index.php"); // Redirect to admin dashboard
+                        exit();
+                    } else {
+                        $_SESSION['alert'] = [
+                            'type' => 'danger',
+                            'message' => "Invalid admin password.",
+                        ];
+                        header("Location: ../login.php");
+                        exit();
+                    }
+                } else {
+                    $_SESSION['alert'] = [
+                        'type' => 'danger',
+                        'message' => "Invalid username.",
+                    ];
+                    header("Location: ../login.php");
+                    exit();
+                }
             } else {
                 $_SESSION['alert'] = [
                     'type' => 'danger',
-                    'message' => "Invalid admin password.",
+                    'message' => "Database error during admin login check: " . mysqli_error($conn),
                 ];
                 header("Location: ../login.php");
                 exit();
             }
-        } else {
-            $_SESSION['alert'] = [
-                'type' => 'danger',
-                'message' => "Invalid username.",
-            ];
-            header("Location: ../login.php");
-            exit();
         }
+        mysqli_free_result($patient_query_run); // Free the result set
+    } else {
+        $_SESSION['alert'] = [
+            'type' => 'danger',
+            'message' => "Database error during patient login check: " . mysqli_error($conn),
+        ];
+        header("Location: ../login.php");
+        exit();
     }
 }
 ?>
