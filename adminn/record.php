@@ -28,48 +28,50 @@ if ($resultVaccination && $resultVaccination->num_rows > 0) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="adminn.css">
     <style>
-    .content {
-        transition: margin-left 0.3s ease;
-        padding: 30px;
-        background-color: #f4f6f9;
-        /* Light grey background */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
         min-height: 100vh;
     }
 
+    .content {
+        transition: margin-left 0.3s ease;
+        padding: 30px;
+        background-color: #fff;
+        box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        margin: 20px;
+    }
+
     .content h2 {
-        margin-bottom: 30px;
-        color: #343a40;
-        /* Dark grey heading */
-        border-bottom: 3px solid #007bff;
-        /* Blue accent */
-        padding-bottom: 15px;
-        text-align: left;
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+        margin-bottom: 25px;
     }
 
     .table-responsive {
-        width: 100%;
         overflow-x: auto;
     }
 
     .content table {
         width: 100%;
         border-collapse: collapse;
-        background-color: white;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        /* Softer shadow */
-        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
         overflow: hidden;
-        /* Ensures rounded corners for the table */
-        min-width: 1500px;
-        /* Adjust as needed to prevent horizontal scroll for smaller datasets */
     }
 
     .content th,
     .content td {
-        border: 1px solid #dee2e6;
-        /* Light grey border */
         padding: 12px 15px;
         text-align: left;
+        border-bottom: 1px solid #dee2e6;
         white-space: nowrap;
         font-size: 0.9rem;
     }
@@ -83,12 +85,10 @@ if ($resultVaccination && $resultVaccination->num_rows > 0) {
 
     .content tbody tr:nth-child(even) {
         background-color: #f8f9fa;
-        /* Very light grey for even rows */
     }
 
     .content tbody tr:hover {
         background-color: #e9ecef;
-        /* Slightly darker hover effect */
     }
 
     .content .action-buttons {
@@ -99,45 +99,164 @@ if ($resultVaccination && $resultVaccination->num_rows > 0) {
     .content .action-buttons a {
         padding: 8px 12px;
         text-decoration: none;
-        border-radius: 5px;
+        border-radius: 4px;
         background-color: #28a745;
-        /* Green update button */
         color: white;
         font-size: 0.85rem;
         margin: 0 5px;
         transition: background-color 0.3s ease;
+        border: 1px solid transparent;
     }
 
     .content .action-buttons a:hover {
         background-color: #218838;
+        border-color: #1e7e34;
     }
 
     .menu-open .content {
         margin-left: 260px;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 1200px) {
-        .content {
-            padding: 20px;
-        }
+    .dose-given-yes {
+        background-color: #d4edda !important;
+        /* Light green */
+        color: #155724 !important;
+        /* Dark green */
+        text-align: center;
+    }
 
-        .content h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-        }
+    .dose-given-no {
+        background-color: #f8d7da !important;
+        /* Light red */
+        color: #721c24 !important;
+        /* Dark red */
+        text-align: center;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1400px) {
 
         .content th,
         .content td {
             padding: 10px;
             font-size: 0.8rem;
         }
+    }
 
-        .content .action-buttons a {
-            padding: 6px 10px;
+    @media (max-width: 1200px) {
+        .content {
+            padding: 20px;
+            margin: 15px;
+        }
+
+        .content h2 {
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+        }
+
+        .content th,
+        .content td {
+            padding: 8px;
             font-size: 0.75rem;
         }
+
+        .content .action-buttons a {
+            padding: 5px 8px;
+            font-size: 0.7rem;
+        }
+    }
+
+    /* Specific column widths for better readability */
+    .content th:nth-child(1),
+    /* First Name */
+    .content td:nth-child(1) {
+        width: 80px;
+        /* Adjust as needed */
+    }
+
+    .content th:nth-child(2),
+    /* Last Name */
+    .content td:nth-child(2) {
+        width: 80px;
+        /* Adjust as needed */
+    }
+
+    .content th:nth-child(6),
+    /* Bitten By */
+    .content td:nth-child(6) {
+        width: 100px;
+        /* Adjust as needed */
+    }
+
+    .content th:nth-child(7),
+    /* Date Exposure */
+    .content td:nth-child(7),
+    .content th:nth-child(8),
+    /* Date Treatment */
+    .content td:nth-child(8) {
+        width: 90px;
+        /* Adjust as needed */
+    }
+
+    .content th:nth-child(9),
+    /* Vaccine */
+    .content td:nth-child(9),
+    .content th:nth-child(10),
+    /* Brand Name */
+    .content td:nth-child(10),
+    .content th:nth-child(11),
+    /* Route */
+    .content td:nth-child(11) {
+        width: 100px;
+        /* Adjust as needed */
+    }
+
+    .content th[colspan="2"],
+    .content td[colspan="2"] {
+        text-align: center;
+    }
+
+    .content th:nth-child(12),
+    /* D0 Date */
+    .content td:nth-child(12),
+    .content th:nth-child(13),
+    /* D0 Given */
+    .content td:nth-child(13),
+    .content th:nth-child(14),
+    /* D3 Date */
+    .content td:nth-child(14),
+    .content th:nth-child(15),
+    /* D3 Given */
+    .content td:nth-child(15),
+    .content th:nth-child(16),
+    /* D7 Date */
+    .content td:nth-child(16),
+    .content th:nth-child(17),
+    /* D7 Given */
+    .content td:nth-child(17),
+    .content th:nth-child(18),
+    /* D14 Date */
+    .content td:nth-child(18),
+    .content th:nth-child(19),
+    /* D14 Given */
+    .content td:nth-child(19),
+    .content th:nth-child(20),
+    /* D28 Date */
+    .content td:nth-child(20),
+    .content th:nth-child(21),
+    /* D28 Given */
+    .content td:nth-child(21) {
+        width: 70px;
+        /* Adjust as needed */
+    }
+
+    .content th:nth-child(22),
+    /* Actions */
+    .content td:nth-child(22) {
+        width: 80px;
+        /* Adjust as needed */
+        text-align: center;
     }
     </style>
 </head>
@@ -163,22 +282,36 @@ if ($resultVaccination && $resultVaccination->num_rows > 0) {
                         <th>Vaccine</th>
                         <th>Brand Name</th>
                         <th>Route</th>
-                        <th>D0 Date</th>
-                        <th>D0 Site</th>
-                        <th>D0 Given</th>
-                        <th>D3 Date</th>
-                        <th>D3 Site</th>
-                        <th>D3 Given</th>
-                        <th>D7 Date</th>
-                        <th>D7 Site</th>
-                        <th>D7 Given</th>
-                        <th>D14 Date</th>
-                        <th>D14 Site</th>
-                        <th>D14 Given</th>
-                        <th>D28 Date</th>
-                        <th>D28 Site</th>
-                        <th>D28 Given</th>
+                        <th colspan="2">D0</th>
+                        <th colspan="2">D3</th>
+                        <th colspan="2">D7</th>
+                        <th colspan="2">D14</th>
+                        <th colspan="2">D28</th>
                         <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Date</th>
+                        <th>Given</th>
+                        <th>Date</th>
+                        <th>Given</th>
+                        <th>Date</th>
+                        <th>Given</th>
+                        <th>Date</th>
+                        <th>Given</th>
+                        <th>Date</th>
+                        <th>Given</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -196,22 +329,32 @@ if ($resultVaccination && $resultVaccination->num_rows > 0) {
                         <td><?= htmlspecialchars($vaccination['brand_name']) ?></td>
                         <td><?= htmlspecialchars($vaccination['route']) ?></td>
                         <td><?= htmlspecialchars($vaccination['D0_date']) ?></td>
-                        <td><?= htmlspecialchars($vaccination['D0_site']) ?></td>
-                        <td><?= htmlspecialchars($vaccination['D0_given']) ?></td>
+                        <td
+                            class="<?= htmlspecialchars($vaccination['D0_given']) ? 'dose-given-yes' : 'dose-given-no' ?>">
+                            <?= htmlspecialchars($vaccination['D0_given']) ? 'Yes' : 'No' ?>
+                        </td>
                         <td><?= htmlspecialchars($vaccination['D3_date']) ?></td>
-                        <td><?= htmlspecialchars($vaccination['D3_site']) ?></td>
-                        <td><?= htmlspecialchars($vaccination['D3_given']) ?></td>
+                        <td
+                            class="<?= htmlspecialchars($vaccination['D3_given']) ? 'dose-given-yes' : 'dose-given-no' ?>">
+                            <?= htmlspecialchars($vaccination['D3_given']) ? 'Yes' : 'No' ?>
+                        </td>
                         <td><?= htmlspecialchars($vaccination['D7_date']) ?></td>
-                        <td><?= htmlspecialchars($vaccination['D7_site']) ?></td>
-                        <td><?= htmlspecialchars($vaccination['D7_given']) ?></td>
+                        <td
+                            class="<?= htmlspecialchars($vaccination['D7_given']) ? 'dose-given-yes' : 'dose-given-no' ?>">
+                            <?= htmlspecialchars($vaccination['D7_given']) ? 'Yes' : 'No' ?>
+                        </td>
                         <td><?= htmlspecialchars($vaccination['D14_date']) ?></td>
-                        <td><?= htmlspecialchars($vaccination['D14_site']) ?></td>
-                        <td><?= htmlspecialchars($vaccination['D14_given']) ?></td>
+                        <td
+                            class="<?= htmlspecialchars($vaccination['D14_given']) ? 'dose-given-yes' : 'dose-given-no' ?>">
+                            <?= htmlspecialchars($vaccination['D14_given']) ? 'Yes' : 'No' ?>
+                        </td>
                         <td><?= htmlspecialchars($vaccination['D28_date']) ?></td>
-                        <td><?= htmlspecialchars($vaccination['D28_site']) ?></td>
-                        <td><?= htmlspecialchars($vaccination['D28_given']) ?></td>
+                        <td
+                            class="<?= htmlspecialchars($vaccination['D28_given']) ? 'dose-given-yes' : 'dose-given-no' ?>">
+                            <?= htmlspecialchars($vaccination['D28_given']) ? 'Yes' : 'No' ?>
+                        </td>
                         <td class="action-buttons">
-                            <a href="update_vaccination.php?id=<?= $vaccination['id'] ?>">Update</a>
+                            <a href="update_record.php?id=<?= $vaccination['id'] ?>">Update</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -219,7 +362,6 @@ if ($resultVaccination && $resultVaccination->num_rows > 0) {
             </table>
         </div>
     </div>
-
 
     <script>
     function toggleMenu() {
