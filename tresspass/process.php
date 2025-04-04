@@ -81,7 +81,7 @@ function sendemail_verify($fname, $email, $verification_token): bool
     <div class='container'>
         <h2 class='greeting'>Welcome to ABC Malaria!</h2>
         <h5>Thank you for registering with us. To complete your registration, please verify your email address by clicking the link below:</h5>
-        <p><a href='http://localhost/magandagroup/tresspass/verify-email.php?token=$verification_token' class='verification-link'>Verify Your Email Address</a></p>
+        <p><a href='http://animedic.site/tresspass/verify-email.php?token=$verification_token' class='verification-link'>Verify Your Email Address</a></p>
         <p>This verification step helps us ensure the security of your account.</p>
         <h5 class='regards'>Sincerely,<br>The ABC Malaria Team</h5>
     </div>

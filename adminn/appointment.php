@@ -36,8 +36,7 @@ if ($result && $result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Appointments</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="adminstyle.css">
-    <link rel="stylesheet" href="appointment.css">
+    <link rel="stylesheet" href="adminn.css">
 </head>
 
 <body>

@@ -12,7 +12,7 @@ if (!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] !== true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Animal Bite Clinic</title>
-    <link rel="stylesheet" href="adminstylee.css">
+    <link rel="stylesheet" href="adminn.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
