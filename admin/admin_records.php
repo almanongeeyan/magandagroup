@@ -144,7 +144,7 @@
         }
 
         form1.addEventListener("click", () => {
-            window.location.href = "admin_index2.php";
+            window.location.href = "admin_index.php";
         });
         form2.addEventListener("click", () => {
             window.location.href = "admin_records.php";
