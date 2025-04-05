@@ -16,6 +16,7 @@
             display: flex;
             transition: margin-left 0.3s ease-in-out;
         }
+
         .header {
             background-color: #00B0B9;
             color: white;
@@ -32,14 +33,84 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             font-family: 'Helvetica Neue', sans-serif;
         }
-        .menu-toggle {
-            font-size: 24px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: white;
-            margin-right: 15px;
+
+        /* Semi-header style */
+        .semi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f1f1f1;
+            padding: 10px 30px;
+            margin-top: 75px;
+            margin-bottom: 10px; /* Add space between the header and semi-header */
+            width: calc(75vw + -400px); /* Increase width by 300px */
         }
+
+        .section {
+            display: flex;
+            align-items: center;
+        }
+
+        .section i {
+            margin-right: 10px;
+        }
+
+        .editable-section {
+            border: none;
+            background: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Dropdown container */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Button for the dropdown */
+        .dropdown-button {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 8px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-button i {
+            margin-left: 2000px;
+        }
+
+        /* Dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        /* Show dropdown when clicked */
+        .dropdown.open .dropdown-content {
+            display: block;
+        }
+
         .sidebar {
             width: 250px;
             height: 100vh;
@@ -54,6 +125,7 @@
             text-align: center;
             background-color: #caf0f8;
         }
+
         .sidebar img {
             width: 100px;
             height: 100px;
@@ -61,6 +133,7 @@
             display: block;
             margin: 20px auto;
         }
+
         .sidebar .editable-name {
             color: black;
             font-size: 18px;
@@ -73,11 +146,13 @@
             width: 100%;
             outline: none;
         }
+
         .sidebar .nav-links {
             margin-top: 20px;
             border-top: 1px solid #575757;
             padding-top: 10px;
         }
+
         .sidebar a {
             display: flex;
             align-items: center;
@@ -85,12 +160,15 @@
             padding: 15px;
             text-decoration: none;
         }
+
         .sidebar a i {
             margin-right: 10px;
         }
+
         .sidebar a:hover {
             background: #575757;
         }
+
         .content-container {
             display: flex;
             flex-grow: 1;
@@ -100,21 +178,45 @@
             justify-content: space-between;
             transition: margin-left 0.3s ease-in-out;
         }
+
         .menu-open .sidebar {
             left: 0;
         }
+
         .menu-open .header {
             left: 250px;
         }
+
         .menu-open .content-container {
             margin-left: 250px;
         }
+
         .logout-button {
             margin-left: 800px;
             width: 90px;
             height: 65px;
             background-color: #00B0B9;
         }
+
+        /* Position the dropdown to be connected with 150px gap from the right */
+        .header .dropdown {
+            position: absolute;
+            right: 150px; /* 150px gap from the right edge */
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Hamburger icon for menu */
+        .menu-toggle {
+            font-size: 30px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            margin-right: 15px;
+            z-index: 9999;
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -136,6 +238,35 @@
             <h1><i class="fa-solid fa-shield-dog"></i> Animedic</h1>
             <button class="logout-button" onclick="logout()">Logout</button>
         </header>
+        
+        <!-- Semi Header -->
+        <div class="semi-header">
+            <div class="section">
+                <i class="fa-solid fa-user"></i>
+                <button class="editable-section">Name</button>
+            </div>
+            <div class="section">
+                <i class="fa-solid fa-file"></i>
+                <button class="editable-section">File</button>
+            </div>
+            <div class="section">
+                <i class="fa-solid fa-tags"></i>
+                <button class="editable-section">Type</button>
+            </div>
+            <div class="section">
+                <i class="fa-solid fa-cogs"></i>
+                <button class="editable-section">Icon</button> <!-- Reverted to a replaceable icon -->
+            </div>
+        </div>
+    </div>
+
+    <div class="dropdown" id="dropdown">
+        <button class="dropdown-button" onclick="toggleDropdown()">Filter <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="dropdown-content" id="dropdownContent">
+            <a href="#" id="filterName">Name</a>
+            <a href="#">File</a>
+            <a href="#">Type</a>
+        </div>
     </div>
 
     <script>
@@ -143,8 +274,20 @@
             document.body.classList.toggle("menu-open");
         }
 
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdown");
+            dropdown.classList.toggle("open");
+            const filterName = document.getElementById("filterName");
+
+            if (dropdown.classList.contains("open")) {
+                filterName.innerHTML = "Sort by :";
+            } else {
+                filterName.innerHTML = "Name";
+            }
+        }
+
         form1.addEventListener("click", () => {
-            window.location.href = "admin_index.php";
+            window.location.href = "admin_index2.php";
         });
         form2.addEventListener("click", () => {
             window.location.href = "admin_records.php";

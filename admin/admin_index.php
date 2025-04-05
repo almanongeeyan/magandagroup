@@ -262,8 +262,12 @@
             document.body.classList.toggle("menu-open");
         }
 
-        const form1 = document.getElementById("form1");
-        const form2 = document.getElementById("form2");
+        form1.addEventListener("click", () => {
+            window.location.href = "admin_index.php";
+        });
+        form2.addEventListener("click", () => {
+            window.location.href = "admin_records.php";
+        });
         const form3 = document.getElementById("form3");
         const form4 = document.getElementById("form4");
 
