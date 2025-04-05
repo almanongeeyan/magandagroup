@@ -26,7 +26,7 @@ body {
 
 /* Menu Styles */
 .menu {
-    background-color: #343a40; /* Dark gray menu background */
+    background-color: #067bf0; /* Dark gray menu background */
     color: #fff;
     width: 280px; /* Slightly wider menu */
     flex-shrink: 0;

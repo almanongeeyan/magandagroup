@@ -3,15 +3,15 @@
 html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
     width: 100vw;
-    background-color: #f8f9fa; /* Very light grey background */
-    color: #495057; /* Dark grey text */
+    background-color: #f8f9fa;
+    color: #495057;
 }
 
 .header {
-    background-color: #0a78e7; /* Dark grey header */
+    background-color: #0a78e7;
     color: white;
     padding: 20px 30px;
     display: flex;
@@ -22,7 +22,7 @@ html, body {
     top: 0;
     left: 0;
     z-index: 1000;
-    border-radius: 0 0 15px 15px; /* More pronounced rounded bottom */
+    border-radius: 0 0 15px 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -34,28 +34,28 @@ html, body {
     color: white;
     margin-right: 20px;
     outline: none;
-    z-index: 1003; /* Ensure toggle is clickable */
+    z-index: 1003;
 }
 
 .sidebar {
-    width: 260px; /* Slightly wider sidebar */
+    width: 260px;
     height: 100vh;
-    background: #212529; /* Even darker grey sidebar */
-    color: #adb5bd; /* Lighter grey text for sidebar */
+    background: #212529;
+    color: #adb5bd;
     position: fixed;
     top: 0;
     left: -260px;
     transition: left 0.3s ease-in-out;
-    padding-top: 70px; /* Adjust for header height */
+    padding-top: 70px;
     z-index: 1001;
-    text-align: left; /* Align text to the left */
+    text-align: left;
     display: flex;
     flex-direction: column;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.25);
 }
 
 .sidebar .editable-name {
-    color: #fff; /* White text for the name */
+    color: #fff;
     font-size: 20px;
     margin: 25px 20px;
     font-weight: bold;
@@ -65,43 +65,43 @@ html, body {
     border: none;
     background: transparent;
     padding: 12px 0;
-    border-bottom: 1px solid #495057; /* Subtle separator */
-    z-index: 1002; /* Ensure text is clickable */
+    border-bottom: 1px solid #495057;
+    z-index: 1002;
 }
 
 .sidebar .nav-links {
     margin-top: 15px;
     padding: 0;
-    list-style: none; /* Remove default list styling */
-    z-index: 1002; /* Ensure links are clickable */
+    list-style: none;
+    z-index: 1002;
 }
 
 .sidebar .nav-links li {
-    margin-bottom: 5px; /* Spacing between links */
+    margin-bottom: 5px;
 }
 
 .sidebar .nav-links a {
     display: flex;
     align-items: center;
     color: #adb5bd;
-    padding: 18px 25px; /* More padding for better touch targets */
+    padding: 18px 25px;
     text-decoration: none;
     transition: background-color 0.2s ease, color 0.2s ease;
-    border-radius: 0; /* No rounded corners for links */
-    z-index: 1002; /* Ensure links are clickable */
+    border-radius: 0;
+    z-index: 1002;
 }
 
 .sidebar .nav-links a i {
     margin-right: 18px;
     font-size: 1.2em;
-    width: 24px; /* Fixed width for icons */
+    width: 24px;
     text-align: center;
-    z-index: 1002; /* Ensure icons are clickable */
+    z-index: 1002;
 }
 
 .sidebar .nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.05); /* Light hover effect */
-    color: #fff; /* White text on hover */
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
 }
 
 .content-wrapper {
@@ -109,15 +109,15 @@ html, body {
     position: relative;
     padding: 30px;
     left: 0;
-    margin-top: 85px; /* Adjust for header height */
+    margin-top: 85px;
     padding-left: 20px;
     padding-right: 20px;
-    z-index: 999; /* Ensure content is below open sidebar */
+    z-index: 999;
 }
 
 .menu-open .sidebar {
     left: 0;
-    z-index: 1002; /* Higher z-index when open */
+    z-index: 1002;
 }
 
 .menu-open .header,
@@ -132,10 +132,10 @@ html, body {
     gap: 40px;
     margin-top: 40px;
     padding: 40px;
-    background-color: #fff; /* White container for content */
+    background-color: #fff;
     border-radius: 15px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    z-index: 998; /* Ensure analytics are below open sidebar */
+    z-index: 998;
 }
 
 .analytics-title {
@@ -160,7 +160,7 @@ html, body {
     width: 100%;
     max-width: 350px;
     padding: 30px;
-    background: #f8f9fa; /* Light grey for forms */
+    background: #f8f9fa;
     border-radius: 12px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
@@ -174,13 +174,12 @@ html, body {
     z-index: 998;
 }
 
-/* Logout Button Styling */
 .sidebar .logout-button {
     padding: 20px 25px;
-    text-align: left; /* Align logout text to the left */
+    text-align: left;
     border-top: 1px solid #495057;
     margin-top: 20px;
-    z-index: 1002; /* Ensure logout is clickable */
+    z-index: 1002;
 }
 
 .sidebar .logout-button a {
@@ -191,7 +190,7 @@ html, body {
     padding: 15px 0;
     transition: background-color 0.2s ease, color 0.2s ease;
     border-radius: 5px;
-    z-index: 1002; /* Ensure logout link is clickable */
+    z-index: 1002;
 }
 
 .sidebar .logout-button a i {
@@ -199,7 +198,7 @@ html, body {
     font-size: 1.2em;
     width: 24px;
     text-align: center;
-    z-index: 1002; /* Ensure logout icon is clickable */
+    z-index: 1002;
 }
 
 .sidebar .logout-button a:hover {
@@ -207,18 +206,17 @@ html, body {
     color: #fff;
 }
 
-/* Styles for the appointments page */
 .appointments-page {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center content horizontally */
+    align-items: center;
 }
 
 .appointments-page h1 {
     color: #333;
     margin-bottom: 30px;
     font-size: 2.2rem;
-    text-align: center; /* Center the heading text */
+    text-align: center;
 }
 
 .appointments-table-container {
@@ -226,9 +224,10 @@ html, body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     overflow: hidden;
-    width: 90%; /* Adjust table width as needed */
-    max-width: 1200px; /* Maximum width for the table */
-    margin-bottom: 30px; /* Add some space below the table */
+    width: 90%;
+    max-width: 1200px;
+    margin-bottom: 30px;
+    z-index: 1; /* Lower z-index for table */
 }
 
 .appointments-table-container table {
@@ -250,7 +249,7 @@ html, body {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    text-align: left; /* Keep header text left-aligned within centered table */
+    text-align: left;
 }
 
 .appointments-table-container tbody tr:nth-child(even) {
@@ -270,5 +269,262 @@ html, body {
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
     border-radius: 5px;
-    text-align: center; /* Center the no appointments message */
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1005; /* Higher z-index for modal */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    display: flex;
+}
+
+.modal-left {
+    width: 40%;
+    padding-right: 20px;
+    border-right: 1px solid #ccc;
+}
+
+.modal-right {
+    width: 60%;
+    padding-left: 20px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* patient_file.css */
+
+.patient-file-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 30px auto;
+    width: 90%;
+    max-width: 1000px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.patient-info, .vaccination-schedule {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.patient-info h2, .vaccination-schedule h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.patient-info p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.patient-info input[type="date"], .patient-info input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 250px;
+    margin-left: 10px;
+    font-size: 1rem;
+}
+
+.patient-info label {
+    margin-right: 20px;
+}
+
+.vaccination-schedule table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.vaccination-schedule th, .vaccination-schedule td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.vaccination-schedule th {
+    background-color: #007bff;
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.vaccination-schedule input[type="date"], .vaccination-schedule input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 180px;
+    font-size: 1rem;
+}
+
+.patient-file-container form {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.patient-file-container button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+.patient-file-container button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+.record-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 30px auto;
+    width: 90%;
+    max-width: 1200px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.record-container h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.record-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.record-container th, .record-container td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.record-container th {
+    background-color: #007bff;
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.record-container tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.record-container tbody tr:hover {
+    background-color: #e9ecef;
+    transition: background-color 0.3s ease;
+}
+
+.record-container .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.record-container .action-buttons a {
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.record-container .action-buttons .update {
+    background-color: #28a745;
+}
+
+.record-container .action-buttons .update:hover {
+    background-color: #218838;
+}
+
+.record-container .action-buttons .delete {
+    background-color: #dc3545;
+}
+
+.record-container .action-buttons .delete:hover {
+    background-color: #c82333;
+}
+
+.add-record-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.add-record-button:hover {
+    background-color: #0056b3;
+}
+
+.no-records {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-top: 20px;
 }
