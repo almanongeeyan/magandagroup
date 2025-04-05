@@ -335,8 +335,8 @@
     }
 
     // Navigation Events
-    form1.addEventListener("click", () => window.location.href = "admin_index2.php");
-    form2.addEventListener("click", () => window.location.href = "admin_records2.php");
+    form1.addEventListener("click", () => window.location.href = "admin_index.php");
+    form2.addEventListener("click", () => window.location.href = "admin_records.php");
     form3.addEventListener("click", () => window.location.href = "admin_appointments.php");
     form4.addEventListener("click", () => window.location.href = "admin_inventory.php");
   </script>
