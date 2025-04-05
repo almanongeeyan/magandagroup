@@ -114,6 +114,24 @@ if ($result && $result->num_rows > 0) {
         color: #777;
         font-style: italic;
     }
+
+    .message-container {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 5px;
+    }
+
+    .success-message {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .danger-message {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
     </style>
 </head>
 
@@ -122,6 +140,16 @@ if ($result && $result->num_rows > 0) {
     <?php include '../includes/admin_header.php'; ?>
     <div class="content-wrapper appointments-page">
         <h1><i class="fa-solid fa-calendar-days"></i> Patient's Appointments</h1>
+
+        <?php if (isset($_SESSION['delete_message'])): ?>
+        <div
+            class="message-container <?php echo $_SESSION['message_type'] === 'success' ? 'success-message' : 'danger-message'; ?>">
+            <?php echo $_SESSION['delete_message']; ?>
+        </div>
+        <?php unset($_SESSION['delete_message']); // Clear the message after displaying ?>
+        <?php unset($_SESSION['message_type']); // Clear the message type ?>
+        <?php endif; ?>
+
         <div class="appointments-table-container">
             <?php if (!empty($appointments)): ?>
             <table>
@@ -148,9 +176,13 @@ if ($result && $result->num_rows > 0) {
                         <td>
                             <a href="patient_file.php?user_id=<?php echo htmlspecialchars($appointment['user_id']); ?>"
                                 class="file-button"><i class="fa-solid fa-file"></i> File</a>
-                            <button class="delete-button"
-                                data-user-id="<?php echo htmlspecialchars($appointment['user_id']); ?>"><i
-                                    class="fa-solid fa-trash"></i> Delete</button>
+                            <form style="display: inline;" action="delete_appointment.php" method="post"
+                                onsubmit="return confirm('Are you sure you want to delete the appointment for <?php echo htmlspecialchars($appointment['fname'] . ' ' . $appointment['lname']); ?>?');">
+                                <input type="hidden" name="user_id"
+                                    value="<?php echo htmlspecialchars($appointment['user_id']); ?>">
+                                <button type="submit" class="delete-button"><i class="fa-solid fa-trash"></i>
+                                    Delete</button>
+                            </form>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -167,20 +199,6 @@ if ($result && $result->num_rows > 0) {
 function toggleMenu() {
     document.body.classList.toggle("menu-open");
 }
-
-// You would typically add JavaScript here to handle the delete button functionality,
-// likely involving an AJAX request to a server-side script to remove the appointment.
-// For now, this is just the visual design.
-const deleteButtons = document.querySelectorAll('.delete-button');
-deleteButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        const userId = this.dataset.userId;
-        if (confirm(`Are you sure you want to delete the appointment for user ID: ${userId}?`)) {
-            // In a real application, you would send an AJAX request here
-            console.log(`Deleting appointment for user ID: ${userId}`);
-        }
-    });
-});
 </script>
 
 </html>

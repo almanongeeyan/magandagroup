@@ -1,37 +1,46 @@
 <?php
 session_start();
+if (!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] !== true) {
+    header("Location: ../tresspass/notresspass.php");
+    exit();
+}
+
 require '../tresspass/connection.php';
 
-// Check if admin is logged in
-if (!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] !== true) {
-    http_response_code(403); // Forbidden
-    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
-    exit();
-}
+if (isset($_POST['user_id'])) {
+    $user_id_to_delete = $_POST['user_id'];
 
-// Check if user_id is provided via POST
-if (!isset($_POST['user_id'])) {
-    http_response_code(400); // Bad Request
-    echo json_encode(['success' => false, 'message' => 'User ID not provided.']);
-    exit();
-}
+    // Sanitize the input to prevent SQL injection
+    $user_id_to_delete = mysqli_real_escape_string($conn, $user_id_to_delete);
 
-$userId = $_POST['user_id'];
+    // Prepare the SQL query to delete the appointment for the given user ID
+    $sql = "DELETE FROM appointment WHERE user_id = ?";
+    $stmt = $conn->prepare($sql);
 
-// Prepare and execute the DELETE statement
-$stmt = $conn->prepare("DELETE FROM appointments WHERE user_id = ?"); // corrected the table name to 'appointments'
-$stmt->bind_param("i", $userId);
-
-if ($stmt->execute()) {
-    if ($stmt->affected_rows > 0) {
-        echo json_encode(['success' => true, 'message' => 'Appointment deleted successfully!']);
+    if ($stmt) {
+        $stmt->bind_param("i", $user_id_to_delete);
+        if ($stmt->execute()) {
+            // Deletion successful
+            $_SESSION['delete_message'] = "Appointment for User ID: " . $user_id_to_delete . " has been deleted successfully.";
+            $_SESSION['message_type'] = 'success';
+        } else {
+            // Error during deletion
+            $_SESSION['delete_message'] = "Error deleting appointment: " . $stmt->error;
+            $_SESSION['message_type'] = 'danger';
+        }
+        $stmt->close();
     } else {
-        echo json_encode(['success' => false, 'message' => 'Appointment not found.']);
+        // Error preparing the statement
+        $_SESSION['delete_message'] = "Error preparing SQL statement: " . $conn->error;
+        $_SESSION['message_type'] = 'danger';
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Database error: ' . $stmt->error]);
+    // User ID not provided
+    $_SESSION['delete_message'] = "Invalid request: User ID not provided.";
+    $_SESSION['message_type'] = 'danger';
 }
 
-$stmt->close();
-$conn->close();
+// Redirect back to the appointments page
+header("Location: appointment.php");
+exit();
 ?>
