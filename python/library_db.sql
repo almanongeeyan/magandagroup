@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2025 at 07:33 PM
+-- Generation Time: Apr 24, 2025 at 06:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,50 +24,49 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `books`
+-- Table structure for table `archive`
 --
 
-CREATE TABLE `books` (
-  `book_id` int(8) NOT NULL,
+CREATE TABLE `archive` (
+  `archive_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `genre` varchar(255) NOT NULL,
-  `author` varchar(255) NOT NULL,
-  `published_date` date NOT NULL,
-  `status` varchar(255) NOT NULL
+  `genre` varchar(100) DEFAULT NULL,
+  `author` varchar(255) DEFAULT NULL,
+  `published_date` date DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `archive_reason` varchar(50) DEFAULT NULL,
+  `lost_in` varchar(255) DEFAULT NULL,
+  `archive_date` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `books`
+-- Dumping data for table `archive`
 --
 
-INSERT INTO `books` (`book_id`, `title`, `genre`, `author`, `published_date`, `status`) VALUES
-(1, 'Free', 'Horror', 'Gee', '2002-04-23', 'Free'),
-(2, 'Cook', 'Recipes', 'Kolin', '2022-12-21', 'Borrowed'),
-(3, 'Book of Lady Gaga', 'Punk', 'Lady Gaga', '2025-01-21', 'Free'),
-(4, 'Taylor\'s Diary', 'Magical', 'Taylor Swift Batumbakal', '2012-02-21', 'Free'),
-(5, 'How to use Kagura', 'Games', 'Gyan Gee Almanon', '2025-04-11', 'Free'),
-(6, 'Lovey Dovey', 'Cutesy', 'Aliyah Policarpio', '2017-04-05', 'Free'),
-(7, 'Afterthought', 'Mystery', 'Creyianna', '2019-03-26', 'Borrowed');
+INSERT INTO `archive` (`archive_id`, `book_id`, `title`, `genre`, `author`, `published_date`, `status`, `archive_reason`, `lost_in`, `archive_date`) VALUES
+(1, 1, 'Free', 'Horror', 'Gee', '2002-04-23', 'Free', 'Missing', 'Fountain', '2025-04-24 23:52:30'),
+(2, 2, 'Cook', 'Recipes', 'Kolin', '2022-12-21', 'Borrowed', 'Lost', 'School', '2025-04-24 23:54:01');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `books`
+-- Indexes for table `archive`
 --
-ALTER TABLE `books`
-  ADD PRIMARY KEY (`book_id`);
+ALTER TABLE `archive`
+  ADD PRIMARY KEY (`archive_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `books`
+-- AUTO_INCREMENT for table `archive`
 --
-ALTER TABLE `books`
-  MODIFY `book_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `archive`
+  MODIFY `archive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
